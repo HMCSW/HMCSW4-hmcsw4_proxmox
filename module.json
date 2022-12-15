@@ -1,0 +1,15 @@
+{
+  "name": "Proxmox HMCSW4 Integration",
+  "description": "Proxmox HMCSW4 as an Service integration",
+  "identifier": "hmcsw4_proxmox",
+  "title": "Proxmox HMCSW4 Integration",
+  "version": "1.0.0",
+  "type": "service",
+  "authors": [
+    {
+      "name": "",
+      "email": ""
+    }
+  ],
+  "minimumCoreVersion": "35"
+}

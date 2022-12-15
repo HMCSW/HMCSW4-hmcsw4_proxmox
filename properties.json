@@ -1,0 +1,288 @@
+{
+  "permissions": {
+    "team.service.loginInService": "site.cp.teams.permission.service.proxmox.vnc",
+    "team.service.proxmox.rdns": "site.cp.teams.permission.service.proxmox.rdns",
+    "team.service.proxmox.stats": "site.cp.teams.permission.service.proxmox.stats",
+    "team.service.proxmox.start": "site.cp.teams.permission.service.proxmox.start",
+    "team.service.proxmox.stop": "site.cp.teams.permission.service.proxmox.stop",
+    "team.service.proxmox.restart": "site.cp.teams.permission.service.proxmox.restart",
+    "team.service.proxmox.kill": "site.cp.teams.permission.service.proxmox.kill"
+  },
+  "disableDefaultActions": [],
+  "neededExtensions": [],
+  "neededHostSettings": ["domain", "user", "password"],
+  "neededProductSettings": ["disk", "memory", "cpu", "ipv4_count", "ipv6_count", "backups"],
+  "actions": [
+    {
+      "action": "start",
+      "functionName": "startVM",
+      "parameters": [],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "start"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_startVM",
+        "error": "site.cp.service.action.message.proxmox_startVMFailed"
+      }
+    },
+    {
+      "action": "stop",
+      "functionName": "stopVM",
+      "parameters": [],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "stop"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_stopVM",
+        "error": "site.cp.service.action.message.proxmox_stopVMFailed"
+      }
+    },
+    {
+      "action": "kill",
+      "functionName": "killVM",
+      "parameters": [],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "kill"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_killVM",
+        "error": "site.cp.service.action.message.proxmox_killVMFailed"
+      }
+    },
+    {
+      "action": "reboot",
+      "functionName": "restartVM",
+      "parameters": [],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "reboot"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_rebootVM",
+        "error": "site.cp.service.action.message.proxmox_rebootVMFailed"
+      }
+    },
+    {
+      "action": "reinstallVM",
+      "functionName": "reinstallVM",
+      "parameters": [
+        {
+          "name": "os",
+          "type": "string",
+          "default": "0"
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "reinstallVM"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.reinstalled",
+        "error": "site.cp.service.action.message.reinstallFailed"
+      }
+    },
+    {
+      "action": "createRDns",
+      "functionName": "createRDns",
+      "parameters": [
+        {
+          "name": "ip_id",
+          "type": "int",
+          "default": 0
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "PUT",
+        "name": "rdns"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_createRDNs",
+        "error": "site.cp.service.action.message.proxmox_createRDNsFailed"
+      }
+    },
+    {
+      "action": "deleteRDns",
+      "functionName": "removeRDns",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "default": "0"
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "DELETE",
+        "name": "rdns"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_deleteRDNs",
+        "error": "site.cp.service.action.message.proxmox_deleteRDNsFailed"
+      }
+    },
+    {
+      "action": "addISO",
+      "functionName": "addISO",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "default": "0"
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "iso"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_addISO",
+        "error": "site.cp.service.action.message.proxmox_addISOFailed"
+      }
+    },
+    {
+      "action": "removeISO",
+      "functionName": "removeISO",
+      "parameters": [],
+      "api": {
+        "enabled": true,
+        "type": "DELETE",
+        "name": "iso"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_removeISO",
+        "error": "site.cp.service.action.message.proxmox_removeISOFailed"
+      }
+    },
+    {
+      "action": "changeRootPassword",
+      "functionName": "changePassword",
+      "parameters": [
+        {
+          "name": "password",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "changeRootPassword"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_changeRootPassword",
+        "error": "site.cp.service.action.message.proxmox_changeRootPasswordFailed"
+      }
+    },
+    {
+      "action": "createBackup",
+      "functionName": "createBackup",
+      "parameters": [
+        {
+          "name": "email",
+          "type": "bool",
+          "default": false
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "POST",
+        "name": "backup"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_createBackup",
+        "error": "site.cp.service.action.message.proxmox_createBackupFailed"
+      }
+    },
+    {
+      "action": "restoreBackup",
+      "functionName": "restoreBackup",
+      "parameters": [
+        {
+          "name": "backupName",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "PATCH",
+        "name": "backup"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_restoreBackup",
+        "error": "site.cp.service.action.message.proxmox_restoreBackupFailed"
+      }
+    },
+    {
+      "action": "deleteBackup",
+      "functionName": "deleteBackup",
+      "parameters": [
+        {
+          "name": "backupName",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "api": {
+        "enabled": true,
+        "type": "DELETE",
+        "name": "backup"
+      },
+      "message": {
+        "success": "site.cp.service.action.message.proxmox_deleteBackup",
+        "error": "site.cp.service.action.message.proxmox_deleteBackupFailed"
+      }
+    }
+  ],
+  "apiPath": [
+    {
+      "path": "info",
+      "functionName": "getData",
+      "method": "GET",
+      "parameters": []
+    },
+    {
+      "path": "stats",
+      "functionName": "getStats",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "chartJSReady",
+          "type": "bool",
+          "default": true
+        },
+        {
+          "name": "by",
+          "type": "string",
+          "default": "hour"
+        }
+      ]
+    },
+    {
+      "path": "rdns",
+      "functionName": "getRdns",
+      "method": "GET",
+      "parameters": []
+    }
+  ]
+}
