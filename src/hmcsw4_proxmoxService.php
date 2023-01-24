@@ -4,21 +4,21 @@ namespace hmcswModule\hmcsw4_proxmox\src;
 
 use Exception;
 use hmcsw\service\Services;
-use hmcsw\service\module\moduleRepository;
+use hmcsw\service\module\ModuleRepository;
 use hmcsw\objects\user\teams\service\Service;
-use hmcsw\service\module\moduleServiceRepository;
+use hmcsw\service\module\ModuleServiceRepository;
 use hmcsw\objects\user\teams\service\ServiceRepository;
 
 class hmcsw4_proxmoxService implements ServiceRepository
 {
 
   protected Service $service;
-  protected moduleServiceRepository $module;
+  protected ModuleServiceRepository $module;
 
   public array $get = ["success" => false];
   public ?\HMCSW4\Client\Resources\Service $externalOBJ = null;
 
-  public function __construct (Service $service, moduleServiceRepository $module)
+  public function __construct (Service $service, ModuleServiceRepository $module)
   {
     $this->service = $service;
     $this->module = $module;
@@ -32,7 +32,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
     return $this->service;
   }
 
-  public function getModule (): moduleServiceRepository
+  public function getModule (): ModuleServiceRepository
   {
     return $this->module;
   }

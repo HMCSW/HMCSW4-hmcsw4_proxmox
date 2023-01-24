@@ -4,15 +4,15 @@ namespace hmcswModule\hmcsw4_proxmox\src;
 
 use hmcsw\routing\routes\error\error;
 use hmcsw\service\config\ConfigService;
-use hmcsw\service\templates\twigService;
+use hmcsw\service\templates\TwigService;
 use hmcsw\service\templates\AssetsService;
 use hmcsw\service\templates\LanguageService;
 use hmcsw\objects\user\teams\service\Service;
 use hmcsw\service\authorization\SessionService;
-use hmcsw\service\module\moduleServiceRepository;
+use hmcsw\service\module\ModuleServiceRepository;
 use hmcsw\objects\user\teams\service\ServiceRepository;
 
-class hmcsw4_proxmox implements moduleServiceRepository
+class hmcsw4_proxmox implements ModuleServiceRepository
 {
   public array $config;
 
@@ -278,6 +278,6 @@ class hmcsw4_proxmox implements moduleServiceRepository
     $args["proxmox"] = $get;
     $args["rdns"] = $rDns;
 
-    twigService::renderPage('cp/teams/services/proxmox.twig', $args);
+    TwigService::renderPage('cp/teams/services/proxmox.twig', $args);
   }
 }
