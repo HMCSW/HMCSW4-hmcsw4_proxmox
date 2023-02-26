@@ -2,15 +2,15 @@
 
 namespace hmcswModule\hmcsw4_proxmox\src;
 
-use hmcsw\routing\routes\error\error;
+use hmcsw\controller\web\error\error;
+use hmcsw\objects\user\teams\service\Service;
+use hmcsw\objects\user\teams\service\ServiceRepository;
+use hmcsw\service\authorization\SessionService;
 use hmcsw\service\config\ConfigService;
-use hmcsw\service\templates\TwigService;
+use hmcsw\service\module\ModuleServiceRepository;
 use hmcsw\service\templates\AssetsService;
 use hmcsw\service\templates\LanguageService;
-use hmcsw\objects\user\teams\service\Service;
-use hmcsw\service\authorization\SessionService;
-use hmcsw\service\module\ModuleServiceRepository;
-use hmcsw\objects\user\teams\service\ServiceRepository;
+use hmcsw\service\templates\TwigService;
 
 class hmcsw4_proxmox implements ModuleServiceRepository
 {
@@ -139,7 +139,7 @@ class hmcsw4_proxmox implements ModuleServiceRepository
           var cpuStatsChart = document.getElementById("cpuStats").getContext("2d");
           var memStatsChart = document.getElementById("memStats").getContext("2d");
           var netStatsChart = document.getElementById("netStats").getContext("2d");
-          var json_url = "' . ConfigService::getUrl("apiAll") . '/v1/user/teams/' . $serviceRepository->getService()->getTeam()->team_id . '/services/' . $serviceRepository->getService()->service_id . '/stats";
+          var json_url = "' . ConfigService::getApiUrl() . '/v1/user/teams/' . $serviceRepository->getService()->getTeam()->team_id . '/services/' . $serviceRepository->getService()->service_id . '/stats";
       
           // draw empty chart
           var cpuStats = new Chart(cpuStatsChart, {
