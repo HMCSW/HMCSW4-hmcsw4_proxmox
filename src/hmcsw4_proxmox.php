@@ -2,6 +2,7 @@
 
 namespace hmcswModule\hmcsw4_proxmox\src;
 
+use hmcsw\controller\web\cp\CPController;
 use hmcsw\controller\web\error\error;
 use hmcsw\objects\user\teams\service\Service;
 use hmcsw\objects\user\teams\service\ServiceRepository;
@@ -10,7 +11,6 @@ use hmcsw\service\config\ConfigService;
 use hmcsw\service\module\ModuleServiceRepository;
 use hmcsw\service\templates\AssetsService;
 use hmcsw\service\templates\LanguageService;
-use hmcsw\service\templates\TwigService;
 
 class hmcsw4_proxmox implements ModuleServiceRepository
 {
@@ -60,7 +60,7 @@ class hmcsw4_proxmox implements ModuleServiceRepository
     return new hmcsw4_proxmoxService($service, $this);
   }
 
-  public function loadPage (array $args, ServiceRepository $serviceRepository): void
+  public function loadPage (array $args, ServiceRepository $serviceRepository, CPController $CPController): void
   {
     if (isset($_GET['vnc'])) {
       $action = $serviceRepository->getService()->createLoginInSession();
@@ -278,6 +278,6 @@ class hmcsw4_proxmox implements ModuleServiceRepository
     $args["proxmox"] = $get;
     $args["rdns"] = $rDns;
 
-    TwigService::renderPage('cp/teams/services/proxmox.twig', $args);
+    $CPController->renderPage('cp/teams/services/proxmox.twig', $args);
   }
 }
