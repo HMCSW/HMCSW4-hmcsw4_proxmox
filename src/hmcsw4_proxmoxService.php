@@ -3,11 +3,10 @@
 namespace hmcswModule\hmcsw4_proxmox\src;
 
 use Exception;
-use hmcsw\service\Services;
-use hmcsw\service\module\ModuleRepository;
 use hmcsw\objects\user\teams\service\Service;
-use hmcsw\service\module\ModuleServiceRepository;
 use hmcsw\objects\user\teams\service\ServiceRepository;
+use hmcsw\service\module\ModuleServiceRepository;
+use hmcsw\service\Services;
 
 class hmcsw4_proxmoxService implements ServiceRepository
 {
@@ -23,7 +22,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
     $this->service = $service;
     $this->module = $module;
 
-    if ($this->service->hostOBJ->host_id != 0) $this->externalOBJ = $this->getExternalOBJ();
+    if ($this->service->host->host_id != 0) $this->externalOBJ = $this->getExternalOBJ();
     $this->get = $this->get();
   }
 
@@ -39,9 +38,11 @@ class hmcsw4_proxmoxService implements ServiceRepository
 
   public function onCreate (bool $reinstall = false): array
   {
-    $host = $this->getService()->hostOBJ;
+    $host = $this->getService()->host;
     $package = $this->getService()->package;
-    $object = (new \HMCSW4\Client\HMCSW4($host->domain, $host->auth['password']))->getTeam($host->auth['user'])->orderCustomBuy("vps", [
+    $host = $this->getService()->getHost();
+
+    $object = (new \HMCSW4\Client\HMCSW4($host->domain, $host->password))->getTeam($host->user)->orderCustomBuy("vps", [
         "disk" => $package['specs']['disk'],
         "memory" => $package['specs']['memory'],
         "cores" => $package['specs']['cpu'] / 100,
@@ -50,7 +51,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
       ]
     );
 
-    $statement = Services::getDatabaseService()->prepare("UPDATE services SET external_id = ?, host_id = ? WHERE service_id = ?", [$object['service_id'], $this->getService()->host['host_id'], $this->getService()->service_id]);
+    Services::getDatabaseService()->prepare("UPDATE services SET external_id = ?, host_id = ? WHERE service_id = ?", [$object['service_id'], $host->host_id, $this->getService()->service_id]);
 
     return ["success" => true];
   }
@@ -123,7 +124,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
     if (!is_null($this->externalOBJ)) {
       return $this->externalOBJ;
     } else{
-      $host = $this->getService()->hostOBJ;
+      $host = $this->getService()->host;
       $host_ipv4 = $host->ip['v4'];
       $host_port = $host->port;
 
