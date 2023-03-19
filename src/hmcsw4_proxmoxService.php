@@ -3,6 +3,7 @@
 namespace hmcswModule\hmcsw4_proxmox\src;
 
 use Exception;
+use hmcsw\exception\ServiceException;
 use hmcsw\objects\user\teams\service\Service;
 use hmcsw\objects\user\teams\service\ServiceRepository;
 use hmcsw\service\module\ModuleServiceRepository;
@@ -56,62 +57,62 @@ class hmcsw4_proxmoxService implements ServiceRepository
     return ["success" => true];
   }
 
-  public function onDelete (bool $reinstall = false): array
+  public function onDelete (bool $reinstall = false): void
   {
     try {
-      return ["success" => true, "response" => $this->externalOBJ->terminateInstant()];
+      $this->externalOBJ->terminateInstant();
     } catch(Exception $e){
-      return ["success" => false, "response" => ["error_code" => $e->getCode(), "error_message" => $e->getMessage()]];
+      throw new ServiceException($e->getMessage(), $e->getCode());
     }
   }
 
-  public function onEnable (): array
+  public function onEnable (): void
   {
     try {
-      return $this->startVM();
+      $this->startVM();
     } catch(Exception $e){
-      return ["success" => false, "response" => ["error_code" => $e->getCode(), "error_message" => $e->getMessage()]];
+      throw new ServiceException($e->getMessage(), $e->getCode());
     }
   }
 
-  public function onDisable (): array
+  public function onDisable (): void
   {
     try {
-      return $this->stopVM();
+      $this->stopVM();
     } catch(Exception $e){
-      return ["success" => false, "response" => ["error_code" => $e->getCode(), "error_message" => $e->getMessage()]];
+      throw new ServiceException($e->getMessage(), $e->getCode());
     }
   }
 
-  public function onTerminate (): array
+  public function onTerminate (): void
   {
-    return ["success" => true];
+
   }
 
-  public function onTerminateInstant (): array
+  public function onTerminateInstant (): void
   {
-    return ["success" => true];
+
   }
 
-  public function onWithdrawTerminate (): array
+  public function onWithdrawTerminate (): void
   {
-    return ["success" => false];
+
   }
 
-  public function onExtend (int $time): array
+  public function onExtend (int $time): void
   {
-    return ["success" => true];
+
   }
 
   public function onLogin (string $key): array
   {
     $session = $this->getExternalOBJ()->createSession();
-    return ["success" => true, "response" => ["url" => $session['url'], "type" => "iframe"]];
+    return ["url" => $session['url'], "type" => "iframe"];
   }
 
-  public function onSetName (string $name): array
+  public function onSetName (string $name): void
   {
-    return ["success" => true];
+
   }
 
   public function getData (): array
