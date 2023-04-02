@@ -241,7 +241,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
 
   public function getRDns (): array
   {
-    if($this->getService()->external['id'] == 0) {
+    if($this->getService()->external_id == 0) {
       return ["success" => false];
     } else {
       return ["success" => true, "response" => $this->getExternalOBJ()->getSpecifiedType("proxmox")->getRDNS()];
@@ -252,7 +252,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
   {
     if($this->get['success']) return $this->get;
 
-    if($this->getService()->external['id'] == 0) {
+    if($this->getService()->external_id == 0) {
       return ["success" => false];
     } else {
       $request = $this->getExternalOBJ()->getSpecifiedType("proxmox")->get();
