@@ -129,7 +129,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
       $host_ipv4 = $host->ip['v4'];
       $host_port = $host->port;
 
-      $object = (new \HMCSW4\Client\HMCSW4($host->domain, $host->auth['password']))->getTeam($host->auth['user'])->getService($this->getService()->external['id']);
+      $object = (new \HMCSW4\Client\HMCSW4($host->domain, $host->auth['password']))->getTeam($host->auth['user'])->getService($this->getService()->external_id);
 
       $this->externalOBJ = $object;
       return $object;
