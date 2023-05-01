@@ -40,7 +40,7 @@ class hmcsw4_proxmoxService implements ServiceRepository
   public function onCreate (bool $reinstall = false): array
   {
     $host = $this->getService()->host;
-    $package = $this->getService()->package;
+    $package = $this->getService()->product->getPackage();
     $host = $this->getService()->getHost();
 
     $object = (new \HMCSW4\Client\HMCSW4($host->domain, $host->password))->getTeam($host->user)->orderCustomBuy("vps", [
