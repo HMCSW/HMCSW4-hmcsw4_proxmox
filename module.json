@@ -3,7 +3,7 @@
   "description": "Proxmox HMCSW4 as an Service integration",
   "identifier": "hmcsw4_proxmox",
   "title": "Proxmox HMCSW4 Integration",
-  "version": "2.1.0",
+  "version": "4.1-2.3",
   "type": "service",
   "authors": [
     {
@@ -11,6 +11,6 @@
       "email": "moritz.walter@the-systems.eu"
     }
   ],
-  "minimumCoreVersion": "56",
+  "minimumCoreVersion": "72",
   "module_id": 12
 }

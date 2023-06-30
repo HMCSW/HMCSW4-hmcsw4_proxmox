@@ -280,4 +280,14 @@ class hmcsw4_proxmox implements ModuleServiceRepository
 
     $CPController->renderPage('cp/teams/services/proxmox.twig', $args);
   }
+
+  public function getOrderConfigurations(): array
+  {
+    return [];
+  }
+
+  public function validOrderConfiguration(array $configuration): void
+  {
+    // TODO: Implement validOrderConfiguration() method.
+  }
 }
