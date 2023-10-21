@@ -6,6 +6,7 @@ use Exception;
 use hmcsw\exception\ServiceException;
 use hmcsw\objects\user\teams\service\Service;
 use hmcsw\objects\user\teams\service\ServiceRepository;
+use hmcsw\objects\user\teams\Team;
 use hmcsw\service\module\ModuleServiceRepository;
 use hmcsw\service\Services;
 
@@ -263,4 +264,8 @@ class hmcsw4_proxmoxService implements ServiceRepository
   }
 
 
+  public function onSetTeam(Team $newTeam): void
+  {
+    // TODO: Implement onSetTeam() method.
+  }
 }
